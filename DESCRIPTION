@@ -1,0 +1,14 @@
+Package: facetsHeatmap
+Type: Package
+Title: Visualize Clustered Copy-Number patterns of Cohorts
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Imports: poLCA, RColorBrewer, cowplot, ggplot2
+Description: Takes as input FACETs segment file of multiple samples,
+    optionally cluster them based on copy number profiles, and visualize
+    them using a heatmap.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
