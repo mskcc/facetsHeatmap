@@ -4,7 +4,8 @@ the output from [facets-Suite](https://github.com/mskcc/facets-suite).
 
 ## Input data
 
-The main input data file is a **cncf** file from FACETS. There is an example file included,
+The main input data file is a **cncf** file from [FACETS](https://github.com/mskcc/facets). 
+There is an example file included,
 [example.cncf](https://github.com/mskcc/facetsHeatmap/blob/inst/extdata/example.cncf):
 
     > library(facetsHeatmap)
@@ -17,3 +18,14 @@ s_67         | 1        | 16256100    | 17359660 | 2         |  1
 
 
 Only the columns shown in the above are used.
+
+## Processing copy number profiles
+
+The segment information is processed into mean gain/loss matrices (samples in rows and positional grids in
+columns) by
+
+    > set.seed(315)
+    > z <- mat2D(cncf = x, bin.size = 10, progress.bar = TRUE)
+    > names(z)
+    [1] "bins"    "matrix"  "dat.tcn" "dat.lcn"
+
