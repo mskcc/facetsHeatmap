@@ -58,8 +58,11 @@ where each element is the median value of **tcn.em** from **cncf** input.
 The components **dat.tcn** and **dat.lcn** are abbreviated copy number profiles (median values for each chromosome)
 for **tcn** and **lcn**, respectively. These are used for clustering of samples.
 
-** Clustering the cohort **
+## Clustering the cohort
 
 Rudimentary wrappers for clustering the samples based on latent class analysis (LCA) are provided, calling the package
 [poLCA](https://cran.r-project.org/web/packages/poLCA/index.html).
+
+     > clusterZ(z, K = 1:5)
+
 
