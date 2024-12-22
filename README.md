@@ -53,5 +53,5 @@ s_67      |  2.33   | 2.5  |   2  |    2  |   2
 s_37      |  4.00   | 4.0  |   4  |    4  |   3  
 s_40      |  3.50   | 4.0  |  3.5 |    3  | 4.5
 
-Each elemnt is the mean values of **tcn.em** and **lcn.em** from **cncf** input.
+Each element is the median value of **tcn.em** from **cncf** input.
 
