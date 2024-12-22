@@ -58,6 +58,7 @@ where each element is the median value of **tcn.em** from **cncf** input.
 The components **dat.tcn** and **dat.lcn** are abbreviated copy number profiles (median values for each chromosome)
 for **tcn** and **lcn**, respectively. These are used for clustering of samples.
 
+
 ## Clustering the cohort
 
 Rudimentary wrappers for clustering the samples based on latent class analysis (LCA) are provided, calling the package
@@ -65,6 +66,27 @@ Rudimentary wrappers for clustering the samples based on latent class analysis (
 
      > clusterZ(z, K = 1:5)
 
-With multiple **K** (no. of clusters) values as above, return value is a **ggplot** object of [BIC vs. **K**](/inst/extdata/cluster.png).
+With multiple **K** (no. of clusters) values as above, return value is a **ggplot** object of BIC vs. **K**:
 
+<img src="/inst/extdata/cluster.png" alt="drawing" width="400"/>
 
+## Generate heatmap
+
+We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap**:
+
+     > plt <- showHeatmap(z, K = 3, margin = c(0.05, 0.4, 0.5, 1.25), mar = c(1, 2.5, 1, 2.5))
+
+The output is a ggplot object for the heatmap combined with reduced 1D average:
+
+<img src="/inst/extdata/heatmap.png" alt="drawing" width="700"/>
+
+By default, it will cluster the samples with **K = 3**, reorder them based on cluster membership (labeled 'C1', 'C2', ..., 'CK')
+and by hierarchical clustering within clusters. The order of clusters are with increasing mean **tcn**. 
+One can specify the maximum 'tcn' with argument **tcn.max** (default 6). If the 1D and 2D part don't align, try to fudge with
+changing the arguments **margin** and **mar** (above are the defaults), each parameters for **ggplot** of 2D and base R graphics
+of 1D, respectively; formats are margin = c(top, right, bottom, left) and mar = c(bottom, left, top, right).
+
+## TO-DO
+
+* Option to use LOH for visualization
+* Option to use relative copy number for visualization
