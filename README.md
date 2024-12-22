@@ -65,4 +65,6 @@ Rudimentary wrappers for clustering the samples based on latent class analysis (
 
      > clusterZ(z, K = 1:5)
 
+With multiple **K** (no. of clusters) values as above, return value is a **ggplot** object of [BIC vs. **K**](/inst/extdata/cluster.png).
+
 
