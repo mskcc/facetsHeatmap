@@ -38,7 +38,7 @@ id         | chromosome     | start    | end      |    fam   | floss
 1          |          1     |       1  |  9958257 |    0.37  |   0.07
 2          |          1     | 9958258  | 19916514 |    0.35  |   0.05
 
-The argument shown for **mat2D** are defaults, except **x**; **bin.size** is the size of the bin in mb. 
+The argument shown for **mat2D** are defaults, except **z**; **bin.size** is the size of the bin in mb. 
 The output list component **bins** shows the mean fraction of gains **fam** and losses **floss** in each bin.
 The component **matrix** is of dimension **n_sample x n_grids**: 
 
