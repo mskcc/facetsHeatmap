@@ -26,6 +26,7 @@ Only the columns shown in the above are used.
 The segment information is processed into mean gain/loss matrices (samples in rows and positional grids in
 columns) by
 
+    > library(facetsHeatmap)
     > set.seed(315)
     > z <- mat2D(cncf = x, bin.size = 10, progress.bar = TRUE)
     > names(z)
@@ -39,11 +40,10 @@ id         | chromosome     | start    | end      |    fam   | floss
 
 The argument shown for **mat2D** are defaults, except **x**; **bin.size** is the size of the bin in mb. 
 The output list component **bins** shows the mean fraction of gains **fam** and losses **floss** in each bin.
+The component **matrix** is of dimension **n_sample x n_grids**: 
 
     > dim(z$matrix)
     [1] 100 287
-
-The component **matrix** is of dimension **n_sample x n_grids**: 
 
     > head(z$matrix)
     
@@ -53,5 +53,13 @@ s_67      |  2.33   | 2.5  |   2  |    2  |   2
 s_37      |  4.00   | 4.0  |   4  |    4  |   3  
 s_40      |  3.50   | 4.0  |  3.5 |    3  | 4.5
 
-Each element is the median value of **tcn.em** from **cncf** input.
+where each element is the median value of **tcn.em** from **cncf** input.
+
+The components **dat.tcn** and **dat.lcn** are abbreviated copy number profiles (median values for each chromosome)
+for **tcn** and **lcn**, respectively. These are used for clustering of samples.
+
+** Clustering the cohort **
+
+Rudimentary wrappers for clustering the samples based on latent class analysis (LCA) are provided, calling the package
+[poLCA](https://cran.r-project.org/web/packages/poLCA/index.html).
 
