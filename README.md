@@ -47,7 +47,7 @@ The component **matrix** is of dimension **n_sample x n_grids**:
 
     > head(z$matrix)
     
-1         |     2   |   3  |   4  |    5  |   6 
+id        |       1 |  2   |   3  |    4  |   5 
 --------- | ------- | ---- | ---- | ----: | ----: 
 s_67      |  2.33   | 2.5  |   2  |    2  |   2  
 s_37      |  4.00   | 4.0  |   4  |    4  |   3  
