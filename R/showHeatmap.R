@@ -7,10 +7,12 @@
 #'        cluster
 #' @param tcn.max Maximum total copy number to display
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}
+#' @param legend.title Tile of legend
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
-                        tcn.max = 6, margin = c(0.05, 0.75, 0.5, 2),
-                        mar = c(1, 2.5, 1, 2.5)){
+                        tcn.max = 6, show.grid = FALSE,
+                        margin = c(0.05, 0.75, 0.5, 2),
+                        mar = c(1, 2.5, 1, 2.5), legend.title = 'tcn'){
 
   sid <- rownames(z$matrix)
   nsamp <- length(sid)
@@ -55,10 +57,10 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
 
   x0 <- 0
   p2d <- ggplot2::ggplot(w, ggplot2::aes(x = name, y = sid, fill = value)) +
-    ggplot2::geom_tile(color = 'gray',linewidth = 0.01) +
     ggplot2::xlab('') +
     ggplot2::ylab('') +
-    ggplot2::labs(fill = expression(tcn)) +
+    ggplot2::labs(fill = legend.title) +
+    ggplot2::geom_raster() +
     ggplot2::scale_fill_gradientn(colors = rev(pal), na.value = 'white',
                          breaks = seq(0, tcn.max, 2)) +
     ggplot2::geom_vline(xintercept = c(xb[seq(22)] - 0.5, nrow(bins) + 0.5),
@@ -85,6 +87,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           panel.background = ggplot2::element_blank(),
           legend.text = ggplot2::element_text(size = 8),
           legend.title = ggplot2::element_text(size = 9))
+
 
   dummy <- function(){
     oneD(z$bins, mar = mar)
