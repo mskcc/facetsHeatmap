@@ -56,15 +56,19 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
   label <- paste('C', seq(K))
 
   x0 <- 0
-  p2d <- ggplot2::ggplot(w, ggplot2::aes(x = name, y = sid, fill = value)) +
+  p2d <- ggplot2::ggplot(w, ggplot2::aes(x = name, y = sid, color = value,
+                                         fill = value)) +
     ggplot2::xlab('') +
     ggplot2::ylab('') +
     ggplot2::labs(fill = legend.title) +
-    ggplot2::geom_raster() +
+    ggplot2::geom_tile() +
     ggplot2::scale_fill_gradientn(colors = rev(pal), na.value = 'white',
                          breaks = seq(0, tcn.max, 2)) +
+    ggplot2::scale_color_gradientn(colors = rev(pal), na.value = 'white',
+                                  breaks = seq(0, tcn.max, 2)) +
     ggplot2::geom_vline(xintercept = c(xb[seq(22)] - 0.5, nrow(bins) + 0.5),
                         linewidth = 0.2) +
+    ggplot2:: guides(color = 'none') +
     ggplot2::annotate('text', x = x0 +
         (xb[seq(1, 21, 2)] + xb[seq(2, 22, 2)])/2,
                       y = -0.01*nsamp, label = seq(1, 21, 2), size = 2.5) +
