@@ -68,7 +68,7 @@ Rudimentary wrappers for clustering the samples based on latent class analysis (
 
 With multiple **K** (no. of clusters) values as above, return value is a **ggplot** object of BIC vs. **K**:
 
-<img src="/inst/extdata/cluster.png" alt="drawing" width="400"/>
+<img src="/inst/extdata/cluster.png" alt="drawing" width="400" height="auto"/>
 
 ## Generate heatmap
 
@@ -78,7 +78,7 @@ We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap
 
 The output is a ggplot object for the heatmap combined with reduced 1D average:
 
-<img src="/inst/extdata/heatmap.png" alt="drawing" width="800"/>
+<img src="/inst/extdata/heatmap.png" alt="" width="600"/>
 
 By default, it will cluster the samples with **K**, reorder them based on cluster membership (labeled 'C1', 'C2', ..., 'CK')
 and by hierarchical clustering within clusters. The order of clusters are with increasing mean **tcn**. 
