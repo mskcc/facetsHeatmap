@@ -2,7 +2,7 @@
 #' @param bins
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}.
 #' @export
-oneD <- function(bins, mar = c(1, 2.5, 1, 2.5)){
+oneD <- function(bins, mar = c(1, 2.7, 1, 2.75)){
 
    chrsize <- chrSizes()
    offset <- cumsum(chrsize)
