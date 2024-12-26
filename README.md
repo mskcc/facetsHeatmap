@@ -78,7 +78,7 @@ We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap
 
 The output is a ggplot object for the heatmap combined with reduced 1D average:
 
-<img src="/inst/extdata/heatmap.png" alt="drawing" width="700"/>
+<img src="/inst/extdata/heatmap.png" alt="drawing" width="800"/>
 
 By default, it will cluster the samples with **K**, reorder them based on cluster membership (labeled 'C1', 'C2', ..., 'CK')
 and by hierarchical clustering within clusters. The order of clusters are with increasing mean **tcn**. 
