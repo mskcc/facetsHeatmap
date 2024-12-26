@@ -62,7 +62,7 @@ oneD <- function(bins, mar = c(1, 2.7, 1, 2.75), cex = 0.4){
    text(x = xchr[seq(2, 22, 2)], y = -0.7, cex = cex,
         label = names(offset)[seq(2, 22, 2)], xpd = NA)
    legend(x = 1.01, y = famp.cut, bty='n',
-          fill = c('orange','red', 'cornflowerblue', 'blue'),
-          border = c('orange', 'red', 'cornflowerblue', 'blue'),
-          legend = c('Gain','Amp', 'Loss','Del'), cex = cex*0.8, xpd = NA)
+          fill = c('red','orange', 'cornflowerblue', 'blue'),
+          border = c('red', 'orange', 'cornflowerblue', 'blue'),
+          legend = c('Amp', 'Gain', 'Loss','Del'), cex = cex*0.8, xpd = NA)
 }
