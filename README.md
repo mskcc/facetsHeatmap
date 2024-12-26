@@ -53,11 +53,11 @@ and homdel in each bin. The component **matrix** is of dimension **n_sample x n_
 
     > head(z$matrix)
     
-id        |       1 |  2   |   3  |    4  |   5 
---------- | ------- | ---- | ---- | ----: | ----: 
-s_67      |  2.33   | 2.5  |   2  |    2  |   2  
-s_37      |  4.00   | 4.0  |   4  |    4  |   3  
-s_40      |  3.50   | 4.0  |  3.5 |    3  | 4.5
+id        |       1  |  2    |   3   |     4  |   5 
+--------- | -------: | ----: | ----: | ----: | ----: 
+s_67      |  2.33    | 2.5   |   2   |     2  |   2  
+s_37      |  4.00    | 4.0   |   4   |     4  |   3  
+s_40      |  3.50    | 4.0   |  3.5  |     3  | 4.5
 
 where each element is the median value of **tcn.em** from **cncf** input.
 
