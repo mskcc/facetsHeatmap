@@ -14,7 +14,7 @@
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
                         tcn.min = -2,
-                        margin=c(0.05, 0.6, 0.5,1.4),
+                        margin=c(0.05, 0.5, 0.5,1.3),
                         mar = c(1, 2.7, 1, 2.75),
                         cex = 0.5,
                         legend.title = 'tcn'){
