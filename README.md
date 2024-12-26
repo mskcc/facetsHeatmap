@@ -2,6 +2,12 @@
 Utility for visualization of copy number profile distributions in a clustered, multisample-cohort using 
 the output from [facets-Suite](https://github.com/mskcc/facets-suite).
 
+## Installation
+
+Install it with
+
+    > devtools::install_github('mskcc/facetsHeatmap')
+    
 ## Input data
 
 The main input data file is a **cncf** file from [FACETS](https://github.com/mskcc/facets). 
