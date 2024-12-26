@@ -74,7 +74,7 @@ With multiple **K** (no. of clusters) values as above, return value is a **ggplo
 
 We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap**:
 
-     > plt <- showHeatmap(z, K = 3, margin=c(0.05, 0.6, 0.5,1.4), mar = c(1, 2.7, 1, 2.75))
+     > plt <- showHeatmap(z, K = 3, margin = c(0.05, 0.5, 0.5, 1.3), mar = c(1, 2.7, 1, 2.75))
 
 The output is a ggplot object for the heatmap combined with reduced 1D average:
 
@@ -90,7 +90,7 @@ of 1D, respectively; formats are margin = c(top, right, bottom, left) and mar = 
 
 One can use relative copy numbers for the heatmap to account for whole-genome duplication:
 
-     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.05, 0.4, 0.5,1.4), tcn.max = 4, tcn.min = -4)
+     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.05, 0.32, 0.5, 1.3), tcn.max = 4, tcn.min = -4)
      > ggsave(plt2, filename = 'heatmap2.png', device = 'png')
 
 <img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
