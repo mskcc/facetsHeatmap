@@ -90,7 +90,7 @@ of 1D, respectively; formats are margin = c(top, right, bottom, left) and mar = 
 
 One can use relative copy numbers for the heatmap to account for whole-genome duplication:
 
-     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.05, 0.4, 0.5,1.4, tcn.max = 4, tcn.min = -4)
+     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.05, 0.4, 0.5,1.4), tcn.max = 4, tcn.min = -4)
      > ggsave(plt2, filename = 'heatmap2.png', device = 'png')
 
 <img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
