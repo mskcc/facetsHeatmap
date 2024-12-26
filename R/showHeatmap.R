@@ -12,7 +12,7 @@
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, show.grid = FALSE,
                         margin = c(0.05, 0.75, 0.5, 2),
-                        mar = c(1, 2.5, 1, 2.5), legend.title = 'tcn'){
+                        mar = c(1, 2.7, 1, 2.75), legend.title = 'tcn'){
 
   sid <- rownames(z$matrix)
   nsamp <- length(sid)
@@ -93,6 +93,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           legend.title = ggplot2::element_text(size = 9))
 
 
+  oneD(z$bins,)
   dummy <- function(){
     oneD(z$bins, mar = mar)
   }

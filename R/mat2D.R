@@ -1,6 +1,7 @@
 #' Generates Table of Mean 1D CNV Profile
 #' @param cncf Input cncf file
 #' @param bin.size Size of bin in mb
+#' @param amp.tcn Lowest tcn for AMP
 #' @param clustering.prep Generate chromosome level features for clustering
 #' @param progress.bar Display progress bar
 #' @return List of components \code{bins} (chromosome, start, and end of bins),
@@ -10,7 +11,8 @@
 #' z <- mat2D(cncf = system.file('extdata','example.cncf', package = 'facetsHeatmap'))
 #' head(z)
 #'
-mat2D <- function(cncf, bin.size = 10, clustering.prep = TRUE,
+mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
+                  clustering.prep = TRUE,
                   progress.bar = TRUE){
 
   chrsize <- chrSizes()
@@ -42,7 +44,7 @@ mat2D <- function(cncf, bin.size = 10, clustering.prep = TRUE,
   cncf <- read.table(cncf,header=TRUE,sep='\t')
   sid <- unique(cncf$sid)
   nsamp <- length(unique(cncf$sid))
-  bins <- cbind(bins,famp=0, floss=0)
+  bins <- cbind(bins,fgain = 0, famp= 0, floss=0, fdel = 0)
 
   m <- nrow(bins)
   mat <- matrix(2, nrow = nsamp, ncol = m)
@@ -51,7 +53,7 @@ mat2D <- function(cncf, bin.size = 10, clustering.prep = TRUE,
   if(progress.bar) pb <- txtProgressBar(style=3)
 
   for(i in seq(m)){
-    famp <- floss <- 0
+    fgain <- famp <- floss <- fdel <- 0
     for(k in seq_along(sid)){
       z <- cncf[cncf$sid==sid[k] & cncf$chrom==bins[i,'chromosome'],]
       flag <- !(z$loc.end < bins[i,'start']) &
@@ -61,13 +63,24 @@ mat2D <- function(cncf, bin.size = 10, clustering.prep = TRUE,
 #       else if(sum(z[flag,'tcn.em']>2) < sum(z[flag,'tcn.em']<2))
 #         floss <- floss + 1
       if(any(flag)){
-        if(all(z[flag,'tcn.em'] > 2)) famp <- famp + 1
-        if(all(z[flag,'tcn.em'] < 2)) floss <- floss + 1
+#        if(all(z[flag, 'tcn.em'] > 2)) famp <- famp + 1
+#        if(all(z[flag, 'tcn.em'] < 2)) floss <- floss + 1
+        if(all(z[flag, 'tcn.em'] > 2 & z[flag, 'tcn.em'] < amp.tcn))
+          fgain <- fgain + 1
+        if(all(z[flag, 'tcn.em'] >= amp.tcn))
+          famp <- famp + 1
+        if(all(z[flag, 'tcn.em'] < 2 & z[flag, 'tcn.em'] > 0))
+          floss <- floss + 1
+        if(all(z[flag, 'tcn.em'] == 0))
+          fdel <- fdel + 1
         mat[k, i] <- mean(z[flag, 'tcn.em'])
       }
     }
-    bins[i,'famp'] <- famp/nsamp
-    bins[i,'floss'] <- floss/nsamp
+    bins[i, 'fgain'] <- fgain/nsamp
+    bins[i, 'famp'] <- famp/nsamp
+    bins[i, 'floss'] <- floss/nsamp
+    bins[i, 'fdel'] <- fdel/nsamp
+
     if(progress.bar) setTxtProgressBar(pb, i/m)
   }
   if(progress.bar) close(pb)
