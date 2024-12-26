@@ -2,7 +2,7 @@
 #' @param bins
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}.
 #' @export
-oneD <- function(bins, mar = c(1, 2.7, 1, 2.75)){
+oneD <- function(bins, mar = c(1, 2.7, 1, 2.75), cex = 0.4){
 
    chrsize <- chrSizes()
    offset <- cumsum(chrsize)
@@ -22,11 +22,11 @@ oneD <- function(bins, mar = c(1, 2.7, 1, 2.75)){
    par(mar = mar, lwd = 0.3)
    plot(NA, xlim = c(0, 1), ylim = c(-floss.cut, famp.cut), xlab='',
         ylab = '% cna', yaxt = 'n',xaxt = 'n' ,mgp = c(1.4,1,0),
-        cex.lab = .8,tck = 0, bty = 'n')
+        cex.lab = cex*1.5,tck = 0, bty = 'n')
    tmp <- seq(-floss.cut, famp.cut, 0.2)
    if(length(tmp) > 6)
      tmp <- seq(-floss.cut, famp.cut, 0.4)
-   axis(side = 2, las = 2, tck = -0.01, cex.axis = 0.5,
+   axis(side = 2, las = 2, tck = -0.01, cex.axis = cex,
         mgp = c(2, 0.5, 0), lwd = 0.5, lwd.ticks = 0.5,
         at = tmp,
         label = tmp*100)
@@ -57,12 +57,12 @@ oneD <- function(bins, mar = c(1, 2.7, 1, 2.75)){
    segments(x0 = x1, x1 = x1, y0 = -1,y1 = 1,lty = 1, lwd = 0.2)
    xchr <- (offset[1:21] + offset[2:22])/2/xmax
    xchr <- c(xchr, (2*offset['22'] + chrsize['22'])/2/xmax)
-   text(x = xchr[seq(1, 21, 2)], y = -0.6, cex = 0.5,
+   text(x = xchr[seq(1, 21, 2)], y = -0.6, cex = cex,
         label = names(offset)[seq(1, 21, 2)], xpd = NA)
-   text(x = xchr[seq(2, 22, 2)], y = -0.7, cex = 0.5,
+   text(x = xchr[seq(2, 22, 2)], y = -0.7, cex = cex,
         label = names(offset)[seq(2, 22, 2)], xpd = NA)
    legend(x = 1.01, y = famp.cut, bty='n',
-          fill = c('red', 'orange', 'cornflowerblue', 'blue'),
-          border = c('red', 'orange', 'cornflowerblue', 'blue'),
-          legend = c('Gain','Amp', 'Loss','Del'), cex = 0.5, xpd = NA)
+          fill = c('orange','red', 'cornflowerblue', 'blue'),
+          border = c('orange', 'red', 'cornflowerblue', 'blue'),
+          legend = c('Gain','Amp', 'Loss','Del'), cex = cex*0.8, xpd = NA)
 }
