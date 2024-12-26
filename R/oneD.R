@@ -57,9 +57,9 @@ oneD <- function(bins, mar = c(1, 2.5, 1, 2.5)){
    segments(x0 = x1, x1 = x1, y0 = -1,y1 = 1,lty = 1, lwd = 0.2)
    xchr <- (offset[1:21] + offset[2:22])/2/xmax
    xchr <- c(xchr, (2*offset['22'] + chrsize['22'])/2/xmax)
-   text(x = xchr[seq(1, 21, 2)], y = -0.8, cex = 0.6,
+   text(x = xchr[seq(1, 21, 2)], y = -0.6, cex = 0.5,
         label = names(offset)[seq(1, 21, 2)], xpd = NA)
-   text(x = xchr[seq(2, 22, 2)], y = -0.9, cex = 0.6,
+   text(x = xchr[seq(2, 22, 2)], y = -0.7, cex = 0.5,
         label = names(offset)[seq(2, 22, 2)], xpd = NA)
    legend(x = 1.01, y = famp.cut, bty='n',
           fill = c('red', 'orange', 'cornflowerblue', 'blue'),
