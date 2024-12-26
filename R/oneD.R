@@ -2,7 +2,7 @@
 #' @param bins
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}.
 #' @export
-oneD <- function(bins, mar = c(1, 2.7, 1, 2.75), cex = 0.4){
+oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.4){
 
    chrsize <- chrSizes()
    offset <- cumsum(chrsize)
@@ -21,12 +21,12 @@ oneD <- function(bins, mar = c(1, 2.7, 1, 2.75), cex = 0.4){
 
    par(mar = mar, lwd = 0.3)
    plot(NA, xlim = c(0, 1), ylim = c(-floss.cut, famp.cut), xlab='',
-        ylab = '% cna', yaxt = 'n',xaxt = 'n' ,mgp = c(1.4,1,0),
-        cex.lab = cex*1.5,tck = 0, bty = 'n')
+        ylab = 'Freq. (%)', yaxt = 'n',xaxt = 'n' ,mgp = c(1.4,1,0),
+        cex.lab = cex*1.3,tck = 0, bty = 'n')
    tmp <- seq(-floss.cut, famp.cut, 0.2)
    if(length(tmp) > 6)
      tmp <- seq(-floss.cut, famp.cut, 0.4)
-   axis(side = 2, las = 2, tck = -0.01, cex.axis = cex,
+   axis(side = 2, las = 2, tck = -0.005, cex.axis = cex,
         mgp = c(2, 0.5, 0), lwd = 0.5, lwd.ticks = 0.5,
         at = tmp,
         label = tmp*100)
@@ -40,14 +40,14 @@ oneD <- function(bins, mar = c(1, 2.7, 1, 2.75), cex = 0.4){
           ytop = x2[i,'fgain'], ybottom = 0,col = 'orange', border = NA)
      if(x2[i,'famp'] > 0)
        rect(xleft = x2[i, 'x.start'], xright = x2[i, 'x.end'],
-            ytop = x2[i,'famp'], ybottom = x2[i,'fgain'],
+            ytop = x2[i,'famp'] + x2[i,'fgain'], ybottom = x2[i,'fgain'],
             col = 'red', border = NA)
      rect(xleft = x2[i, 'x.start'], xright = x2[i, 'x.end'],
           ytop = 0, ybottom = -x2[i, 'floss'], col='cornflowerblue',
           border = NA)
      if(x2[i,'fdel'] > 0)
        rect(xleft = x2[i, 'x.start'], xright = x2[i, 'x.end'],
-            ytop = -x2[i,'floss'], ybottom = -x2[i,'fdel'],
+            ytop = -x2[i,'floss'], ybottom = -x2[i,'floss'] - x2[i,'fdel'],
             col = 'blue', border = NA)
    }
    for(i in seq_along(offset))

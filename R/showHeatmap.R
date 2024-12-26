@@ -14,9 +14,9 @@
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
                         tcn.min = -2,
-                        margin=c(0.05, 0.5, 0.5,1.3),
-                        mar = c(1, 2.7, 1, 2.75),
-                        cex = 0.5,
+                        margin=c(0.1, 0.5, 0.5,1.3),
+                        mar = c(1, 2.5, 1, 2.6),
+                        cex = 0.6,
                         legend.title = 'tcn'){
 
   sid <- rownames(z$matrix)
@@ -89,10 +89,10 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     ggplot2:: guides(color = 'none') +
     ggplot2::annotate('text', x = x0 +
         (xb[seq(1, 21, 2)] + xb[seq(2, 22, 2)])/2,
-                      y = -0.01*nsamp, label = seq(1, 21, 2), size = 2) +
+                      y = -0.008*nsamp, label = seq(1, 21, 2), size = cex*4.5) +
     ggplot2::annotate('text', x = x0 +
         (xb[seq(2, 22, 2)] + xb[seq(3, 23, 2)])/2,
-                      y = -0.02*nsamp, label = seq(2, 22, 2), size = 2) +
+                      y = -0.015*nsamp, label = seq(2, 22, 2), size = cex*4.5) +
     ggplot2::coord_cartesian(xlim = c(x0, ncol(dat)), ylim = c(1, nrow(x)),
                              clip = 'off') +
     ggplot2::annotate('text', x = -1, y = nsamp - c(0,a[seq(1,length(a)-1)]) - 1,
@@ -114,6 +114,6 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     oneD(z$bins, mar = mar, cex = cex)
   }
   plt2 <- cowplot::plot_grid(dummy, p2d, nrow = 2, ncol = 1,
-                             rel_heights = c(0.15, 0.85))
+                             rel_heights = c(0.1, 0.9))
   return(plt2)
 }
