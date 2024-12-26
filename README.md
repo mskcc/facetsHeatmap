@@ -80,7 +80,7 @@ The output is a ggplot object for the heatmap combined with reduced 1D average:
 
      > ggsave(plt, filename = 'heatmap.png', device = 'png')
 
-<img src="/inst/extdata/heatmap.png" alt="" width="800"/>
+<img src="/inst/extdata/heatmap.png" alt="" width="1000"/>
 
 By default, it will cluster the samples with **K**, reorder them based on cluster membership (labeled 'C1', 'C2', ..., 'CK')
 and by hierarchical clustering within clusters. The order of clusters are with increasing mean **tcn**. 
@@ -88,14 +88,14 @@ One can specify the maximum 'tcn' with argument **tcn.max** (default 6). If the 
 changing the arguments **margin** and **mar** (above are the defaults), each parameters for **ggplot** of 2D and base R graphics
 of 1D, respectively; formats are margin = c(top, right, bottom, left) and mar = c(bottom, left, top, right).
 
-One can use relative copy numbers for the heatmap, e.g., to account for whole-genome duplication:
+One can use relative copy numbers for the heatmap to account for whole-genome duplication:
 
      > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.05, 0.4, 0.5,1.4, tcn.max = 4, tcn.min = -4)
      > ggsave(plt2, filename = 'heatmap2.png', device = 'png')
 
-<img src="/inst/extdata/heatmap2.png" alt="" width="800"/>
+<img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
 
-where for each sample, the mean tcn is subtracted from the local values. Heatmaps are centered at zero (white color) here.
+where for each sample, mean tcn is subtracted from local values. Heatmaps are centered at zero (white color).
      
 ## TO-DO
 
