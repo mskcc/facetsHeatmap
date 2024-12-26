@@ -11,7 +11,7 @@
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, show.grid = FALSE,
-                        margin = c(0.05, 0.75, 0.5, 2),
+                        margin=c(0.05, 0.4, 0.5,1.25),
                         mar = c(1, 2.7, 1, 2.75), legend.title = 'tcn'){
 
   sid <- rownames(z$matrix)
