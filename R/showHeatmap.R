@@ -98,6 +98,6 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     oneD(z$bins, mar = mar)
   }
   plt2 <- cowplot::plot_grid(dummy, p2d, nrow = 2, ncol = 1,
-                             rel_heights = c(0.15, 0.85))
+                             rel_heights = c(0.2, 0.8))
   return(plt2)
 }
