@@ -80,7 +80,7 @@ With multiple **K** (no. of clusters) values as above, return value is a **ggplo
 
 We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap**:
 
-     > plt <- showHeatmap(z, K = 3, margin=c(0.1, 0.5, 0.5,1.3), mar = c(1, 2.5, 1, 2.6))
+     > plt <- showHeatmap(z, K = 3, margin=c(0.1, 0.5, 0.5,1.3), mar = c(1.5, 2.5, 1, 2.6))
 
 The output is a ggplot object for the heatmap combined with reduced 1D average:
 
