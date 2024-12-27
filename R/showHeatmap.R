@@ -10,14 +10,15 @@
 #' @param tcn.min If \code{Relative}, lower bound of relative tcn loss to show
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}
 #' @param legend.title Tile of legend
+#' @param ... Other parameters to \code{oneD(...)}
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
                         tcn.min = -2,
                         margin=c(0.1, 0.5, 0.5,1.3),
-                        mar = c(1, 2.5, 1, 2.6),
                         cex = 0.6,
-                        legend.title = 'tcn'){
+                        legend.title = 'tcn',
+                        ...){
 
   sid <- rownames(z$matrix)
   nsamp <- length(sid)
@@ -111,9 +112,9 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           legend.title = ggplot2::element_text(size = cex*17))
 
   dummy <- function(){
-    oneD(z$bins, mar = mar, cex = cex)
+    oneD(z$bins, cex = cex, ...)
   }
   plt2 <- cowplot::plot_grid(dummy, p2d, nrow = 2, ncol = 1,
-                             rel_heights = c(0.1, 0.9))
+                             rel_heights = c(0.15, 0.85))
   return(plt2)
 }

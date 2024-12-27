@@ -1,8 +1,10 @@
 #' Plot Average Gain/Loss Profiles from Cohort CNA data
 #' @param bins
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}.
+#' @param show.loh Show LOH fractions
 #' @export
-oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.4){
+oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.6,
+                 show.loh = TRUE){
 
    chrsize <- chrSizes()
    offset <- cumsum(chrsize)
@@ -50,6 +52,16 @@ oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.4){
             ytop = -x2[i,'floss'], ybottom = -x2[i,'floss'] - x2[i,'fdel'],
             col = 'blue', border = NA)
    }
+   if(show.loh){
+     for(i in seq(nrow(x2))){
+       segments(x0 = x2[i, 'x.start'], x1 = x2[i, 'x.end'],
+          y0 = x2[i, 'floh'], y1 = x2[i, 'floh'], col = 'forestgreen', lwd = 1)
+       if(i == nrow(x2)) break()
+       segments(x0 = x2[i, 'x.end'], x1 = x2[i+1, 'x.start'],
+          y0 = x2[i, 'floh'], y1 = x2[i+1, 'floh'], col = 'forestgreen', lwd = 1)
+     }
+   }
+
    for(i in seq_along(offset))
      segments(x0 = offset[i]/xmax, x1 = offset[i]/xmax, y0 = -1, y1 = 1,
               lty = 1,lwd = 0.2)
@@ -65,4 +77,8 @@ oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.4){
           fill = c('red','orange', 'cornflowerblue', 'blue'),
           border = c('red', 'orange', 'cornflowerblue', 'blue'),
           legend = c('Amp', 'Gain', 'Loss','Del'), cex = cex*0.8, xpd = NA)
+   if(show.loh)
+     legend(x = 1.01, y = 0.05, bty='n',
+          lty = 1, col = 'forestgreen', lwd = 2, legend = 'LOH', cex = cex*0.8,
+          xpd = NA)
 }

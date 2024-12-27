@@ -9,7 +9,8 @@
 #' @export
 #' @examples
 #' z <- mat2D(cncf = system.file('extdata','example.cncf', package = 'facetsHeatmap'))
-#' head(z)
+#' names(z)
+#' head(z$matrix)
 #'
 mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
                   clustering.prep = TRUE,
@@ -44,7 +45,7 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
   cncf <- read.table(cncf,header=TRUE,sep='\t')
   sid <- unique(cncf$sid)
   nsamp <- length(unique(cncf$sid))
-  bins <- cbind(bins,fgain = 0, famp= 0, floss=0, fdel = 0)
+  bins <- cbind(bins,fgain = 0, famp= 0, floss=0, fdel = 0, floh = 0)
 
   m <- nrow(bins)
   mat <- matrix(2, nrow = nsamp, ncol = m)
@@ -53,18 +54,12 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
   if(progress.bar) pb <- txtProgressBar(style=3)
 
   for(i in seq(m)){
-    fgain <- famp <- floss <- fdel <- 0
+    fgain <- famp <- floss <- fdel <- floh <- 0
     for(k in seq_along(sid)){
       z <- cncf[cncf$sid==sid[k] & cncf$chrom==bins[i,'chromosome'],]
       flag <- !(z$loc.end < bins[i,'start']) &
         !(bins[i,'end'] < z$loc.start) # some overlap between the two
-#       if(sum(z[flag,'tcn.em']>2) > sum(z[flag,'tcn.em']<2))
-#         famp <- famp + 1
-#       else if(sum(z[flag,'tcn.em']>2) < sum(z[flag,'tcn.em']<2))
-#         floss <- floss + 1
       if(any(flag)){
-#        if(all(z[flag, 'tcn.em'] > 2)) famp <- famp + 1
-#        if(all(z[flag, 'tcn.em'] < 2)) floss <- floss + 1
         if(all(z[flag, 'tcn.em'] > 2 & z[flag, 'tcn.em'] < amp.tcn))
           fgain <- fgain + 1
         if(all(z[flag, 'tcn.em'] >= amp.tcn))
@@ -73,6 +68,8 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
           floss <- floss + 1
         if(all(z[flag, 'tcn.em'] == 0))
           fdel <- fdel + 1
+        if(all(!is.na(z[flag,'lcn.em']) & z[flag, 'lcn.em'] == 0))
+          floh <- floh + 1
         mat[k, i] <- mean(z[flag, 'tcn.em'])
       }
     }
@@ -80,6 +77,7 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
     bins[i, 'famp'] <- famp/nsamp
     bins[i, 'floss'] <- floss/nsamp
     bins[i, 'fdel'] <- fdel/nsamp
+    bins[i, 'floh'] <- floh/nsamp
 
     if(progress.bar) setTxtProgressBar(pb, i/m)
   }
