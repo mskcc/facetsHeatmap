@@ -39,14 +39,14 @@ columns) by
     [1] "bins"    "matrix"  "dat.tcn" "dat.lcn"
     > head(z$bins)
     
-id         | chromosome     | start    | end      |    fgain  |   famp |  floss  | fdel
----------: | -------------: | -------: | -------: | --------: | ------:| ------: | -----
-1          |          1     |       1  |  9958257 |    0.15   |   0.22 |   0.07  | 0
-2          |          1     | 9958258  | 19916514 |    0.12   |   0.18 |   0.04  | 0
+id         | chromosome     | start    | end      |    fgain  |   famp |  floss  | fdel   | floh 
+---------: | -------------: | -------: | -------: | --------: | ------:| ------: | -----: | ------
+1          |          1     |       1  |  9958257 |    0.15   |   0.22 |   0.07  | 0      |  0.18
+2          |          1     | 9958258  | 19916514 |    0.12   |   0.18 |   0.04  | 0      |  0.12
 
 The argument shown for **mat2D** are defaults, except **cncf**; **bin.size** is the size of the bin in mb. 
-The output list component **bins** shows the frequencies of samples with gains, amp (tcn > **amp.tcn**), loss, 
-and homdel in each bin. The component **matrix** is of dimension **n_sample x n_grids**: 
+The output list component **bins** shows the frequencies of samples with gains, amp (tcn > **amp.tcn**), loss, homdel, 
+and LOH in each bin. The component **matrix** is of dimension **n_sample x n_grids**: 
 
     > dim(z$matrix)
     [1] 100 287
