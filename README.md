@@ -36,7 +36,7 @@ columns) by
     > set.seed(315)
     > z <- mat2D(cncf = x, bin.size = 10, amp.tcn = 4, progress.bar = TRUE)
     > names(z)
-    [1] "bins"    "matrix"  "dat.tcn" "dat.lcn"
+    [1] "bins"    "matrix"  "matrix.loh" "dat.tcn" "dat.lcn"
     > head(z$bins)
     
 id         | chromosome     | start    | end      |    fgain  |   famp |  floss  | fdel   | floh 
@@ -59,7 +59,8 @@ s_67      |  2.33    | 2.5   |   2   |     2  |   2
 s_37      |  4.00    | 4.0   |   4   |     4  |   3  
 s_40      |  3.50    | 4.0   |  3.5  |     3  | 4.5
 
-where each element is the median value of **tcn.em** from **cncf** input.
+where each element is the mean value of **tcn.em** from **cncf** input. The matrix **matrix.loh** contains the density
+of LOH given by **lcn.em** = 0.
 
 The components **dat.tcn** and **dat.lcn** are abbreviated copy number profiles (median values for each chromosome)
 for **tcn** and **lcn**, respectively. These are used for clustering of samples.
