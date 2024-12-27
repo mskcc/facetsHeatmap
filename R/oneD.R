@@ -3,7 +3,7 @@
 #' @param mar Base graphics margin; argument \code{mar} to \code{par()}.
 #' @param show.loh Show LOH fractions
 #' @export
-oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.6,
+oneD <- function(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.6,
                  show.loh = TRUE){
 
    chrsize <- chrSizes()
@@ -18,7 +18,7 @@ oneD <- function(bins, mar = c(1, 2.5, 1, 2.6), cex = 0.6,
    x2$x.start <- x2$x.start/xmax
    x2$x.end <- x2$x.end/xmax
 
-   famp.cut <- 0.2*(floor(max(x2$fgain + x2$famp) / 0.2) + 1)
+   famp.cut <- 0.2*(floor(max(c(x2$fgain + x2$famp, x2$floh)) / 0.2) + 1)
    floss.cut <- 0.2*(floor(max(x2$floss + x2$fdel) / 0.2) + 1)
 
    par(mar = mar, lwd = 0.3)

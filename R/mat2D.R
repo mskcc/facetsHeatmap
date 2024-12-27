@@ -22,7 +22,6 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
   xtot <- sum(chrsize)
   ntot <- round(xtot/dx) + 1
   nchr <- round(chrsize/dx)
-# if(sum(nchr)!=ntot) stop('error')
   xchr <- cumsum(nchr)
 
   chrno <- rep(0,ntot)  # chromosome no. each bin belongs to
@@ -49,8 +48,9 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
 
   m <- nrow(bins)
   mat <- matrix(2, nrow = nsamp, ncol = m)
-  rownames(mat) <- sid
-  colnames(mat) <- bins$id
+  mat.loh <- matrix(0, nrow = nsamp, ncol = m)
+  rownames(mat) <- rownames(mat.loh) <- sid
+  colnames(mat) <- colnames(mat.loh) <- bins$id
   if(progress.bar) pb <- txtProgressBar(style=3)
 
   for(i in seq(m)){
@@ -71,6 +71,8 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
         if(all(!is.na(z[flag,'lcn.em']) & z[flag, 'lcn.em'] == 0))
           floh <- floh + 1
         mat[k, i] <- mean(z[flag, 'tcn.em'])
+        mat.loh[k, i] <- ifelse(all(is.na(z[flag, 'lcn.em'])), NA,
+                            mean(z[flag, 'lcn.em'] == 0, na.rm = TRUE))
       }
     }
     bins[i, 'fgain'] <- fgain/nsamp
@@ -97,7 +99,8 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
         dat2[k, i] <- round(median(z[, 'lcn.em'], na.rm = TRUE))
       }
     }
-    w <- list(bins=bins, matrix = mat, dat.tcn = dat, dat.lcn = dat2)
+    w <- list(bins=bins, matrix = mat, matrix.loh = mat.loh,
+              dat.tcn = dat, dat.lcn = dat2)
   }
 
   return(w)

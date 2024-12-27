@@ -8,16 +8,18 @@
 #' @param tcn.max Maximum total copy number to display
 #' @param relative Use relative copy numbers
 #' @param tcn.min If \code{Relative}, lower bound of relative tcn loss to show
-#' @param mar Base graphics margin; argument \code{mar} to \code{par()}
+#' @param margin Parameter to \code{theme(margin = ...)} for heatmap
 #' @param legend.title Tile of legend
+#' @param useLOH Show LOH heatmap instead of tcn
 #' @param ... Other parameters to \code{oneD(...)}
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
                         tcn.min = -2,
-                        margin=c(0.1, 0.5, 0.5,1.3),
+                        margin=c(0.15, 0.5, 0.5,1.3),
                         cex = 0.6,
                         legend.title = 'tcn',
+                        useLOH = FALSE,
                         ...){
 
   sid <- rownames(z$matrix)
@@ -41,9 +43,12 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
   }
   sid <- sid1
   cid <- cid[sid]
-  x <- z$matrix[sid, ]
-  if(relative)
-    x <- x - rowMeans(x)
+  if(useLOH){
+    x <- z$matrix.loh[sid, ]
+  } else {
+    x <- z$matrix[sid, ]
+    if(relative) x <- x - rowMeans(x, na.rm = TRUE)
+  }
   bins <- z$bins
   xb <- bins[!duplicated(bins[, 2]), 'id']
   xb <- c(xb, nrow(bins))
@@ -53,28 +58,37 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
   w$sid <- factor(w$sid, levels = sid)
   w$name <- factor(w$name, levels = colnames(x))
 
-  wmax <- tcn.max
-  w$value[w$value > wmax] <- wmax
-  wmin <- ifelse(relative, tcn.min, 0)
-  w$value[w$value < wmin] <- wmin
-
-  if(relative){
-    np1 <- ceiling(wmax*10)
-    np2 <- ceiling(abs(wmin)*10)
-    legend.title <- expression(Delta*' tcn')
+  if(useLOH){
+    wmax <- 1
+    wmin <- 0
+    pal1 <- colorRampPalette(RColorBrewer::brewer.pal(9,'Blues'))(20)
+    pal <- rev(c('white', pal1))
+    if(legend.title == 'tcn')
+      legend.title <- 'loh'
   } else{
-    np1 <- (ceiling(wmax) - 2)*10
-    np2 <- 20
+    wmax <- tcn.max
+    w$value[w$value > wmax] <- wmax
+    wmin <- ifelse(relative, tcn.min, 0)
+    w$value[w$value < wmin] <- wmin
+    if(relative){
+      np1 <- ceiling(wmax*10)
+      np2 <- ceiling(abs(wmin)*10)
+      legend.title <- expression(Delta*' tcn')
+    } else{
+      np1 <- (ceiling(wmax) - 2)*10
+      np2 <- 20
+    }
+    pal1 <- colorRampPalette(RColorBrewer::brewer.pal(9,'OrRd'))(np1)
+    pal2 <- colorRampPalette(RColorBrewer::brewer.pal(9,'Blues'))(np2)
+    pal <- c(rev(pal1),'white',pal2)
   }
-  pal1 <- colorRampPalette(RColorBrewer::brewer.pal(9,'OrRd'))(np1)
-  pal2 <- colorRampPalette(RColorBrewer::brewer.pal(9,'Blues'))(np2)
-  pal <- c(rev(pal1),'white',pal2)
 
   a <- cumsum(as.numeric(table(cid)))
   label <- paste('C', seq(K))
 
   x0 <- 0
-  ticks <- c(rev(seq(0,wmin, by = -2)), seq(2, wmax, by = 2))
+  if(useLOH) ticks <- c(0, 0.5, 1)
+  else ticks <- c(rev(seq(0,wmin, by = -2)), seq(2, wmax, by = 2))
   p2d <- ggplot2::ggplot(w, ggplot2::aes(x = name, y = sid, color = value,
                                          fill = value)) +
     ggplot2::xlab('') +
