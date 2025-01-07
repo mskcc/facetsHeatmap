@@ -20,6 +20,8 @@ clusterZ <- function(z, K = 2, plotBIC = TRUE){
      Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9,Y10,Y11,Y12,
      Y13,Y14,Y15,Y16,Y17,Y18,Y19,Y20,Y21,Y22) ~ 1
 
+   nsamp <- NROW(z$matrix)
+   K <- min(c(K, nsamp)) # cannot cluster into more than nsamp dimensions
    fit <- list()
    bic <- NULL
    for(k in K){

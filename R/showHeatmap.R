@@ -110,11 +110,6 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                       y = -0.015*nsamp, label = seq(2, 22, 2), size = cex*4.5) +
     ggplot2::coord_cartesian(xlim = c(x0, ncol(dat)), ylim = c(1, nrow(x)),
                              clip = 'off') +
-    ggplot2::annotate('text', x = -1, y = nsamp - c(0,a[seq(1,length(a)-1)]) - 1,
-                      label = label, size = cex*5,
-                      hjust = 1, color = 'black') +
-    ggplot2::geom_hline(yintercept = c(nsamp + 0.5, nsamp - a + 0.5),
-      linewidth = 0.3) +
     ggplot2::scale_y_discrete(limits = rev(sid)) +
     ggplot2::theme(axis.text = ggplot2::element_blank(),
           axis.ticks = ggplot2::element_blank(),
@@ -124,6 +119,15 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           panel.background = ggplot2::element_blank(),
           legend.text = ggplot2::element_text(size = cex*15),
           legend.title = ggplot2::element_text(size = cex*17))
+
+  if(clusterZ)
+    p2d <- p2d +
+      ggplot2::annotate('text', x = -1,
+                        y = nsamp - c(0,a[seq(1,length(a)-1)]) - 1,
+                        label = label, size = cex*5,
+                        hjust = 1, color = 'black') +
+      ggplot2::geom_hline(yintercept = c(nsamp + 0.5, nsamp - a + 0.5),
+                        linewidth = 0.3)
 
   dummy <- function(){
     oneD(z$bins, cex = cex, ...)
