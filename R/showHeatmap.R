@@ -15,7 +15,7 @@
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
-                        tcn.min = -2,
+                        tcn.min = -4,
                         margin=c(0.15, 0.5, 0.5,1.3),
                         cex = 0.6,
                         legend.title = 'tcn',
@@ -47,7 +47,11 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     x <- z$matrix.loh[sid, ]
   } else {
     x <- z$matrix[sid, ]
-    if(relative) x <- x - rowMeans(x, na.rm = TRUE)
+    if(relative){
+      ploidy <- rowMeans(x, na.rm = TRUE)
+      ploidy[!is.na(z$ploidy[sid])] <- z$ploidy[sid]
+      x <- x - ploidy
+    }
   }
   bins <- z$bins
   xb <- bins[!duplicated(bins[, 2]), 'id']
@@ -96,9 +100,9 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     ggplot2::labs(fill = legend.title) +
     ggplot2::geom_tile() +
     ggplot2::scale_fill_gradientn(colors = rev(pal),
-                  na.value = 'white', breaks = ticks) +
+                  na.value = 'white', breaks = ticks, limit = c(wmin, wmax)) +
     ggplot2::scale_color_gradientn(colors = rev(pal),
-                  na.value = 'white', breaks = ticks) +
+                  na.value = 'white', breaks = ticks, limit = c(wmin, wmax)) +
     ggplot2::geom_vline(xintercept = c(xb[seq(22)] - 0.5, nrow(bins) + 0.5),
                         linewidth = 0.2) +
     ggplot2:: guides(color = 'none') +
@@ -117,7 +121,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           legend.key.size = ggplot2::unit(0.3, 'cm'),
           panel.grid = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.text = ggplot2::element_text(size = cex*15),
+          legend.text = ggplot2::element_text(size = cex*14),
           legend.title = ggplot2::element_text(size = cex*17))
 
   if(clusterZ)

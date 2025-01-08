@@ -8,7 +8,7 @@
 #'         and \code{matrix} (sample vs. bin matrix of copy numbers).
 #' @export
 #' @examples
-#' z <- mat2D(cncf = system.file('extdata','example.cncf', package = 'facetsHeatmap'))
+#' z <- mat2D(cncf = system.file('extdata','example_with_ploidy.cncf', package = 'facetsHeatmap'))
 #' names(z)
 #' head(z$matrix)
 #'
@@ -44,6 +44,11 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
   cncf <- read.table(cncf,header=TRUE,sep='\t')
   sid <- unique(cncf$sid)
   nsamp <- length(unique(cncf$sid))
+
+  if('ploidy' %in% colnames(cncf))
+    ploidy <- cncf[match(sid, cncf$sid),'ploidy']
+  else ploidy <- rep(NA, nsamp)
+  names(ploidy) <- sid
   bins <- cbind(bins,fgain = 0, famp= 0, floss=0, fdel = 0, floh = 0)
 
   m <- nrow(bins)
@@ -86,7 +91,7 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
   if(progress.bar) close(pb)
 
   if(!clustering.prep)
-    w <- list(bins=bins, matrix = mat)
+    w <- list(bins=bins, matrix = mat, ploidy = ploidy)
   else{
     m <- length(chrsize)
     dat <- dat2 <- matrix(2, nrow = nsamp, ncol = m)
@@ -100,7 +105,7 @@ mat2D <- function(cncf, bin.size = 10, amp.tcn = 4,
       }
     }
     w <- list(bins=bins, matrix = mat, matrix.loh = mat.loh,
-              dat.tcn = dat, dat.lcn = dat2)
+              dat.tcn = dat, dat.lcn = dat2, ploidy = ploidy)
   }
 
   return(w)

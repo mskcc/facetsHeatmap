@@ -76,9 +76,9 @@ oneD <- function(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.6,
    legend(x = 1.01, y = famp.cut, bty='n',
           fill = c('red','orange', 'cornflowerblue', 'blue'),
           border = c('red', 'orange', 'cornflowerblue', 'blue'),
-          legend = c('Amp', 'Gain', 'Loss','Del'), cex = cex*0.8, xpd = NA)
+          legend = c('Amp', 'Gain', 'Loss','Del'), cex = cex*0.7, xpd = NA)
    if(show.loh)
      legend(x = 1.01, y = 0.05, bty='n',
-          lty = 1, col = 'forestgreen', lwd = 2, legend = 'LOH', cex = cex*0.8,
+          lty = 1, col = 'forestgreen', lwd = 2, legend = 'LOH', cex = cex*0.7,
           xpd = NA)
 }
