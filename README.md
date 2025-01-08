@@ -93,7 +93,7 @@ The output is a ggplot object for the heatmap combined with reduced 1D average:
 
      > ggsave(plt, filename = 'heatmap.png', device = 'png')
 
-<img src="/inst/extdata/heatmap.png" alt="" width="1000"/>
+<img src="/inst/extdata/heatmap.png" alt="" width="700"/>
 
 By default, it will cluster the samples with **K**, reorder them based on cluster membership (labeled 'C1', 'C2', ..., 'CK')
 and by hierarchical clustering within clusters. The order of clusters are with increasing mean **tcn**. 
@@ -111,7 +111,7 @@ One can use relative copy numbers for the heatmap to account for whole-genome du
      > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.15, 0.32, 0.5, 1.3), tcn.max = 4, tcn.min = -4)
      > ggsave(plt2, filename = 'heatmap2.png', device = 'png')
 
-<img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
+<img src="/inst/extdata/heatmap2.png" alt="" width="700"/>
 
 where for each sample, known ploidy (**z$ploidy**) is subtracted from local values 
 (if unknown, mean tcn is computed from the matrix and subtracted). Heatmaps are centered at zero (white color).
@@ -121,4 +121,4 @@ Instead of **tcn**, LOH distribution given by fraction of **lcn.em == 0** can be
      > plt3 <- showHeatmap(z, K = 3, useLOH = TRUE, margin = c(0.15, 0.3, 0.5,1.3))
      > ggsave(plt3, filename='heatmap3.png', device='png')
 
-<img src="/inst/extdata/heatmap3.png" alt="" width="1000"/>
+<img src="/inst/extdata/heatmap3.png" alt="" width="700"/>
