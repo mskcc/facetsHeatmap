@@ -108,10 +108,10 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
     ggplot2:: guides(color = 'none') +
     ggplot2::annotate('text', x = x0 +
         (xb[seq(1, 21, 2)] + xb[seq(2, 22, 2)])/2,
-                      y = -0.008*nsamp, label = seq(1, 21, 2), size = cex*4.0) +
+                      y = -0.008*nsamp, label = seq(1, 21, 2), size = cex*3.5) +
     ggplot2::annotate('text', x = x0 +
         (xb[seq(2, 22, 2)] + xb[seq(3, 23, 2)])/2,
-                      y = -0.015*nsamp, label = seq(2, 22, 2), size = cex*4.0) +
+                      y = -0.015*nsamp, label = seq(2, 22, 2), size = cex*3.5) +
     ggplot2::coord_cartesian(xlim = c(x0, ncol(dat)), ylim = c(1, nrow(x)),
                              clip = 'off') +
     ggplot2::scale_y_discrete(limits = rev(sid)) +
