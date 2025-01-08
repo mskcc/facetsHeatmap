@@ -113,7 +113,7 @@ One can use relative copy numbers for the heatmap to account for whole-genome du
 
 <img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
 
-where for each sample, known ploidy (**z$plolidy**) is subtracted from local values 
+where for each sample, known ploidy (**z$ploidy**) is subtracted from local values 
 (if unknown, mean tcn is computed from the matrix and subtracted). Heatmaps are centered at zero (white color).
      
 Instead of **tcn**, LOH distribution given by fraction of **lcn.em == 0** can be displayed by specifying **useLOH = TRUE**:
