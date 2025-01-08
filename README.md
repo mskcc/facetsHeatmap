@@ -16,16 +16,17 @@ There is an example file included,
 
 
     > library(facetsHeatmap)
-    > x <- system.file('extdata','example.cncf', package = 'facetsHeatmap')
+    > x <- system.file('extdata','example_with_ploidy.cncf', package = 'facetsHeatmap')
     > head(x)
 
-sid          | chrom    | loc.start   | loc.end  | tcn.em    | lcn.em
------------: | -------: | ----------: | -------: | --------: | --------:
-s_67         | 1        | 1001177     | 16255758 | 2         |  0
-s_67         | 1        | 16256100    | 17359660 | 2         |  1
+sid          | chrom    | loc.start   | loc.end  | tcn.em    | lcn.em  | ploidy
+-----------: | -------: | ----------: | -------: | --------: | --------: ------|
+s_67         | 1        | 1001177     | 16255758 | 2         |  0      |    2.1
+s_67         | 1        | 16256100    | 17359660 | 2         |  1      |    2.1
 
 
-Only the columns shown in the above are used.
+Only the columns shown in the above are used. The last column **ploidy** is optional, and if present, 
+will be used when showing relative copy number profile.
 
 ## Processing copy number profiles
 
@@ -36,7 +37,7 @@ columns) by
     > set.seed(315)
     > z <- mat2D(cncf = x, bin.size = 10, amp.tcn = 4, progress.bar = TRUE)
     > names(z)
-    [1] "bins"    "matrix"  "matrix.loh" "dat.tcn" "dat.lcn"
+    [1] "bins"    "matrix"  "matrix.loh" "dat.tcn" "dat.lcn" "ploidy"
     > head(z$bins)
     
 id         | chromosome     | start    | end      |    fgain  |   famp |  floss  | fdel   | floh 
@@ -65,6 +66,11 @@ of LOH given by **lcn.em** = 0.
 The components **dat.tcn** and **dat.lcn** are abbreviated copy number profiles (median values for each chromosome)
 for **tcn** and **lcn**, respectively. These are used for clustering of samples.
 
+The component **ploidy** stores ploidy values of all unique samples (**NA** if the column was not in input):
+
+    > head(z$ploidy)
+    s_67 s_37 s_40  s_9 s_90 s_51 
+    2.1  3.3  3.0  1.6  2.7  2.3 
 
 ## Clustering the cohort
 
@@ -107,7 +113,8 @@ One can use relative copy numbers for the heatmap to account for whole-genome du
 
 <img src="/inst/extdata/heatmap2.png" alt="" width="1000"/>
 
-where for each sample, mean tcn is subtracted from local values. Heatmaps are centered at zero (white color).
+where for each sample, known ploidy (**z$plolidy**) is subtracted from local values 
+(if unknown, mean tcn is computed from the matrix and subtracted). Heatmaps are centered at zero (white color).
      
 Instead of **tcn**, LOH distribution given by fraction of **lcn.em == 0** can be displayed by specifying **useLOH = TRUE**:
 
