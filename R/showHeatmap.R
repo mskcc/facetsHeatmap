@@ -16,7 +16,7 @@
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         tcn.max = 6, relative = FALSE,
                         tcn.min = -4,
-                        margin=c(0.15, 0.5, 0.5,1.3),
+                        margin=c(0.15, 0.4, 0.5,1.2),
                         cex = 0.6,
                         legend.title = 'tcn',
                         useLOH = FALSE,
@@ -88,7 +88,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
   }
 
   a <- cumsum(as.numeric(table(cid)))
-  label <- paste('C', seq(K))
+  label <- paste0('C', seq(K))
 
   x0 <- 0
   if(useLOH) ticks <- c(0, 0.5, 1)

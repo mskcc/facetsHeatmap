@@ -20,7 +20,7 @@ oneD <- function(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.5,
 
    famp.cut <- 0.2*(floor(max(c(x2$fgain + x2$famp, x2$floh)) / 0.2) + 1)
    floss.cut <- 0.2*(floor(max(x2$floss + x2$fdel) / 0.2) + 1)
-
+#  floss.cut <- 0.2*(floor(max(c(x2$floss + x2$fdel, x2$floh)) / 0.2) + 1)
    par(mar = mar, lwd = 0.3)
    plot(NA, xlim = c(0, 1), ylim = c(-floss.cut, famp.cut), xlab='',
         ylab = 'Freq. (%)', yaxt = 'n',xaxt = 'n' ,mgp = c(1.4,1,0),
@@ -55,10 +55,10 @@ oneD <- function(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.5,
    if(show.loh){
      for(i in seq(nrow(x2))){
        segments(x0 = x2[i, 'x.start'], x1 = x2[i, 'x.end'],
-          y0 = x2[i, 'floh'], y1 = x2[i, 'floh'], col = 'forestgreen', lwd = 1)
+          y0 = -x2[i, 'floh'], y1 = -x2[i, 'floh'], col = 'forestgreen', lwd = 1)
        if(i == nrow(x2)) break()
        segments(x0 = x2[i, 'x.end'], x1 = x2[i+1, 'x.start'],
-          y0 = x2[i, 'floh'], y1 = x2[i+1, 'floh'], col = 'forestgreen', lwd = 1)
+          y0 = -x2[i, 'floh'], y1 = -x2[i+1, 'floh'], col = 'forestgreen', lwd = 1)
      }
    }
 
@@ -69,16 +69,16 @@ oneD <- function(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.5,
    segments(x0 = x1, x1 = x1, y0 = -1,y1 = 1,lty = 1, lwd = 0.2)
    xchr <- (offset[1:21] + offset[2:22])/2/xmax
    xchr <- c(xchr, (2*offset['22'] + chrsize['22'])/2/xmax)
-   text(x = xchr[seq(1, 21, 2)], y = -0.6, cex = .8*cex,
+   text(x = xchr[seq(1, 21, 2)], y = -0.7, cex = .8*cex,
         label = names(offset)[seq(1, 21, 2)], xpd = NA)
-   text(x = xchr[seq(2, 22, 2)], y = -0.7, cex = .8*cex,
+   text(x = xchr[seq(2, 22, 2)], y = -0.9, cex = .8*cex,
         label = names(offset)[seq(2, 22, 2)], xpd = NA)
    legend(x = 1.01, y = famp.cut, bty='n',
           fill = c('red','orange', 'cornflowerblue', 'blue'),
           border = c('red', 'orange', 'cornflowerblue', 'blue'),
           legend = c('Amp', 'Gain', 'Loss','Del'), cex = cex*0.7, xpd = NA)
    if(show.loh)
-     legend(x = 1.01, y = 0.05, bty='n',
+     legend(x = 1.01, y = 0.0, bty='n',
           lty = 1, col = 'forestgreen', lwd = 2, legend = 'LOH', cex = cex*0.7,
           xpd = NA)
 }
