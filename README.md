@@ -87,7 +87,7 @@ With multiple **K** (no. of clusters) values as above, return value is a **ggplo
 
 We choose **K = 3** below, specifying it in the argument **K** for **showHeatmap**:
 
-     > plt <- showHeatmap(z, K = 3, margin=c(0.15, 0.5, 0.5, 1.3), mar = c(1.5, 2.5, 1, 2.6))
+     > plt <- showHeatmap(z, K = 3, margin=c(0.15, 0.4, 0.5, 1.2), mar = c(1.5, 2.5, 1, 2.6))
 
 The output is a ggplot object for the heatmap combined with reduced 1D average:
 
@@ -108,7 +108,7 @@ of 1D, respectively; formats are margin = c(top, right, bottom, left) and mar = 
 
 One can use relative copy numbers for the heatmap to account for whole-genome duplication:
 
-     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.15, 0.32, 0.5, 1.3), tcn.max = 4, tcn.min = -4)
+     > plt2 <- showHeatmap(z, K = 3, relative = TRUE, margin=c(0.15, 0.25, 0.5, 1.2), tcn.max = 4, tcn.min = -4)
      > ggsave(plt2, filename = 'heatmap2.png', device = 'png')
 
 <img src="/inst/extdata/heatmap2.png" alt="" width="700"/>
@@ -118,7 +118,7 @@ where for each sample, known ploidy (**z$ploidy**) is subtracted from local valu
      
 Instead of **tcn**, LOH distribution given by fraction of **lcn.em == 0** can be displayed by specifying **useLOH = TRUE**:
 
-     > plt3 <- showHeatmap(z, K = 3, useLOH = TRUE, margin = c(0.15, 0.3, 0.5,1.3))
+     > plt3 <- showHeatmap(z, K = 3, useLOH = TRUE, margin = c(0.15, 0.25, 0.5, 1.2))
      > ggsave(plt3, filename='heatmap3.png', device='png')
 
 <img src="/inst/extdata/heatmap3.png" alt="" width="700"/>
