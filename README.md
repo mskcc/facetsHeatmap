@@ -12,7 +12,7 @@ Install it with
 
 The main input data file is a **cncf** file from [FACETS](https://github.com/mskcc/facets). 
 There is an example file included,
-[example_with_ploidy.cncf](https://github.com/mskcc/facetsHeatmap/blob/inst/extdata/example_with_ploidy.cncf):
+[example_with_ploidy.cncf](/inst/extdata/example_with_ploidy.cncf):
 
 
     > library(facetsHeatmap)
