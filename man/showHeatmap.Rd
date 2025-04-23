@@ -18,6 +18,7 @@ showHeatmap(
   useLOH = FALSE,
   feature_output = NULL,
   show.sid = FALSE,
+  sid.size = 2,
   ...
 )
 }
@@ -48,6 +49,8 @@ cluster}
 matrix is not saved}
 
 \item{show.sid}{Display sample IDs}
+
+\item{sid.size}{Sample ID size}
 
 \item{...}{Other parameters to \code{oneD(...)}}
 }
