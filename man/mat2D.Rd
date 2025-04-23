@@ -4,12 +4,20 @@
 \alias{mat2D}
 \title{Generates Table of Mean 1D CNV Profile}
 \usage{
-mat2D(cncf, bin.size = 10, clustering.prep = TRUE, progress.bar = TRUE)
+mat2D(
+  cncf,
+  bin.size = 10,
+  amp.tcn = 4,
+  clustering.prep = TRUE,
+  progress.bar = TRUE
+)
 }
 \arguments{
 \item{cncf}{Input cncf file}
 
 \item{bin.size}{Size of bin in mb}
+
+\item{amp.tcn}{Lowest tcn for AMP}
 
 \item{clustering.prep}{Generate chromosome level features for clustering}
 
@@ -23,7 +31,8 @@ List of components \code{bins} (chromosome, start, and end of bins),
 Generates Table of Mean 1D CNV Profile
 }
 \examples{
-z <- mat2D(cncf = system.file('extdata','example.cncf', package = 'facetsHeatmap'))
-head(z)
+z <- mat2D(cncf = system.file('extdata','example_with_ploidy.cncf', package = 'facetsHeatmap'))
+names(z)
+head(z$matrix)
 
 }

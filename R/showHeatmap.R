@@ -11,6 +11,9 @@
 #' @param margin Parameter to \code{theme(margin = ...)} for heatmap
 #' @param legend.title Tile of legend
 #' @param useLOH Show LOH heatmap instead of tcn
+#' @param feature_output File name for sample-feature matrix; if \code{NULL},
+#'        matrix is not saved
+#' @param show.sid Display sample IDs
 #' @param ... Other parameters to \code{oneD(...)}
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
@@ -20,6 +23,8 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         cex = 0.6,
                         legend.title = 'tcn',
                         useLOH = FALSE,
+                        feature_output = NULL,
+                        show.sid = FALSE,
                         ...){
 
   sid <- rownames(z$matrix)
@@ -58,6 +63,11 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
   xb <- c(xb, nrow(bins))
 
   dat <- cbind(data.frame(sid = sid), x)
+  if(!is.null(feature_output)){
+    tdat <- data.frame(dat)
+    write.table(tdat, file = feature_output, row.names = F, col.names= T,
+                sep = '\t')
+  }
   w <- data.frame(tidyr::pivot_longer(dat, cols = colnames(x)))
   w$sid <- factor(w$sid, levels = sid)
   w$name <- factor(w$name, levels = colnames(x))
@@ -124,14 +134,27 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
           legend.text = ggplot2::element_text(size = cex*14),
           legend.title = ggplot2::element_text(size = cex*17))
 
-  if(clusterZ)
+  if(clusterZ){
     p2d <- p2d +
+      ggplot2::geom_hline(yintercept = c(nsamp + 0.5, nsamp - a + 0.5),
+                          linewidth = 0.3)
+    if(!show.sid){
+      p2d <- p2d +
       ggplot2::annotate('text', x = -1,
                         y = nsamp - c(0,a[seq(1,length(a)-1)]) - 1,
                         label = label, size = cex*5,
+                        hjust = 0, color = 'black')
+    } else{
+      p2d <- p2d +
+      ggplot2::annotate('text', x = x0 + max(xb)+10,
+                        y = nsamp - c(0,a[seq(1,length(a)-1)]) - 1,
+                        label = label, size = cex*5,
                         hjust = 1, color = 'black') +
-      ggplot2::geom_hline(yintercept = c(nsamp + 0.5, nsamp - a + 0.5),
-                        linewidth = 0.3)
+      ggplot2::annotate('text', x= -1,
+                        y = seq(nsamp,1, -1), label = sid, size=cex*nsamp/30,
+                        hjust = 1, color = 'black')
+    }
+  }
 
   dummy <- function(){
     oneD(z$bins, cex = cex, ...)

@@ -4,10 +4,12 @@
 \alias{oneD}
 \title{Plot Average Gain/Loss Profiles from Cohort CNA data}
 \usage{
-oneD(bins, mar = c(1, 2.5, 1, 2.5))
+oneD(bins, mar = c(1.5, 2.5, 1, 2.6), cex = 0.5, show.loh = TRUE)
 }
 \arguments{
 \item{mar}{Base graphics margin; argument \code{mar} to \code{par()}.}
+
+\item{show.loh}{Show LOH fractions}
 }
 \description{
 Plot Average Gain/Loss Profiles from Cohort CNA data

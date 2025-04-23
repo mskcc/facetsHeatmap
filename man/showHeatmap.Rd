@@ -10,8 +10,15 @@ showHeatmap(
   K = 2,
   reorder.hc = TRUE,
   tcn.max = 6,
-  margin = c(0.05, 0.75, 0.5, 2),
-  mar = c(1, 2.5, 1, 2.5)
+  relative = FALSE,
+  tcn.min = -4,
+  margin = c(0.15, 0.4, 0.5, 1.2),
+  cex = 0.6,
+  legend.title = "tcn",
+  useLOH = FALSE,
+  feature_output = NULL,
+  show.sid = FALSE,
+  ...
 )
 }
 \arguments{
@@ -27,7 +34,22 @@ cluster}
 
 \item{tcn.max}{Maximum total copy number to display}
 
-\item{mar}{Base graphics margin; argument \code{mar} to \code{par()}}
+\item{relative}{Use relative copy numbers}
+
+\item{tcn.min}{If \code{Relative}, lower bound of relative tcn loss to show}
+
+\item{margin}{Parameter to \code{theme(margin = ...)} for heatmap}
+
+\item{legend.title}{Tile of legend}
+
+\item{useLOH}{Show LOH heatmap instead of tcn}
+
+\item{feature_output}{File name for sample-feature matrix; if \code{NULL},
+matrix is not saved}
+
+\item{show.sid}{Display sample IDs}
+
+\item{...}{Other parameters to \code{oneD(...)}}
 }
 \description{
 Generate heatmap of Copy-Number Profiles
