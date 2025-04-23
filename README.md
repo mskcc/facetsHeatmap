@@ -100,7 +100,9 @@ and by hierarchical clustering within clusters. The order of clusters are with i
 In the 1D profile, the line plot for LOH fractions can be turned off with **show.loh = FALSE**. To skip clustering (e.g. with
 too few samples) and/or 
 reordering within clusters, use the options **clusterZ = FALSE** and/or **reorder.hc = FALSE**, and the samples will be
-displayed with the input order.
+displayed with the input order. The sequence of reordered samples used in the heatmap can be dumped for reference by
+specifying the parameter **feature_output = 'filename.txt'** (default **NULL**; do not write). Further, for a cohort with a relatively
+small number of samples, the sample IDs can be displayed on the left by **show.sid = TRUE**.
 
 One can specify the maximum 'tcn' with argument **tcn.max** (default 6). If the 1D and 2D part don't align, try to fudge with
 changing the arguments **margin** and **mar** (above are the defaults), each parameters for **ggplot** of 2D and base R graphics
