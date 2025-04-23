@@ -14,6 +14,7 @@
 #' @param feature_output File name for sample-feature matrix; if \code{NULL},
 #'        matrix is not saved
 #' @param show.sid Display sample IDs
+#' @param sid.size Sample ID size
 #' @param ... Other parameters to \code{oneD(...)}
 #' @export
 showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
@@ -25,6 +26,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         useLOH = FALSE,
                         feature_output = NULL,
                         show.sid = FALSE,
+                        sid.size = 2,
                         ...){
 
   sid <- rownames(z$matrix)
@@ -151,7 +153,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
                         label = label, size = cex*5,
                         hjust = 1, color = 'black') +
       ggplot2::annotate('text', x= -1,
-                        y = seq(nsamp,1, -1), label = sid, size=cex*nsamp/30,
+                        y = seq(nsamp,1, -1), label = sid, size=sid.size,
                         hjust = 1, color = 'black')
     }
   }
