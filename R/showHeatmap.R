@@ -66,7 +66,7 @@ showHeatmap <- function(z, clusterZ = TRUE, K = 2, reorder.hc = TRUE,
 
   dat <- cbind(data.frame(sid = sid), x)
   if(!is.null(feature_output)){
-    tdat <- data.frame(dat)
+    tdat <- cbind(data.frame(sid = sid, cid = cid), data.frame(x))
     write.table(tdat, file = feature_output, row.names = F, col.names= T,
                 sep = '\t')
   }
